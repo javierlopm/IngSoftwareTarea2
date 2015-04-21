@@ -6,13 +6,19 @@ Created on Apr 19, 2015
     Javier Lopez
 '''
 import unittest
+import sys
+sys.path.append('.')
+import mdlaccesscontrol.mdlaccesscontrol
 
+class MdlTest(unittest.TestCase):
+    
+    def setUp(self):
+        self.a=mdlaccesscontrol.mdlaccesscontrol.clsAccessControl()
+    
 
-class Test(unittest.TestCase):
+    def testCharEsp(self):
+        self.assertEqual("",self.a.encript("12345678901234567"),"Error,se encripto cuando no debia!")
 
-
-    def testName(self):
-        pass
 
 
 if __name__ == "__main__":
