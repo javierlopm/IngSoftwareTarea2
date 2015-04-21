@@ -13,12 +13,23 @@ import mdlaccesscontrol.mdlaccesscontrol
 class MdlTest(unittest.TestCase):
     
     def setUp(self):
-        self.a=mdlaccesscontrol.mdlaccesscontrol.clsAccessControl()
+        self.acsc=mdlaccesscontrol.mdlaccesscontrol.clsAccessControl()
     
-
-    def testCharEsp(self):
-        self.assertEqual("",self.a.encript("12345678901234567"),"Error,se encripto cuando no debia!")
-
+    """Casos Frontera"""
+    
+    #Caso de string largo fuera del limite
+    def testLargoNoEncript(self):
+        self.assertEqual("",self.acsc.encript("12c45f78i!k2@4567"),"Error! se encripto cuando no debia!")
+    
+    #Caso de string largo dentro del limite
+    def testLargoEncript(self):
+        self.assertNotEqual("", self.acsc.encript("12c45f78i!k2@456"), "Error! clave no encriptada")
+    
+    
+    
+    """Casos esquina"""
+    
+    """Pruebas maliciosa"""
 
 
 if __name__ == "__main__":
