@@ -7,7 +7,7 @@ Created on Apr 19, 2015
 '''
 import unittest
 import sys
-sys.path.append('.')
+sys.path.append('..')
 import mdlaccesscontrol.mdlaccesscontrol
 
 class MdlTest(unittest.TestCase):
