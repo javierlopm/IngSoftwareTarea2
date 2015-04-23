@@ -104,7 +104,17 @@ class MdlTest(unittest.TestCase):
     
     """Pruebas maliciosa"""
     
-
+    #Intento de cierre de comilla + extremo de validez, posible entrada para sqlInyections
+    def testIntentoVacio(self):
+        string = "\"DROP TABLE USER"
+        self.assertNotEqual(string,self.acsc.encript(string),"El string entro al sistema sin ser encriptado")
+        self.assertEqual("",self.acsc.encript(string),"String fue encriptado en situacion invalida")
+    
+    #String con caracteres de control no presentes en el teclado
+    def testCharNoImp(self):
+        string = "\0a\2D\1!Tp43" #String longitud 10
+        self.assertEqual("", self.acsc.encript(string) ,"String con caracteres inesperados encriptado por error")
+        
     
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
