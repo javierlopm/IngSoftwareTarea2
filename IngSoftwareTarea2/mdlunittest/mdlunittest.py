@@ -56,26 +56,25 @@ class MdlTest(unittest.TestCase):
     def testCadenaNula(self):
         self.assertEqual("",self.acsc.encript(""), "Error! se obtuvo una encriptacion")
         
-    #Caso verificacion vacia
+        #Caso verificacion vacia
     def testVerifVacia(self):
-        self.assertEqual("",self.acsc.check_password("abC4d12!@",""), "Error! Verificacion no valida!")
+        self.assertFalse(self.acsc.check_password("abC4d12!@",""), "Error! Verificacion no valida!")
         
     #Caso verificacion con un caracter menos
     def testVerifCharMenos(self):
-        self.assertEqual("",self.acsc.check_password("abC4d12!@","aC4d12!@"), "Error! Verificacion no valida!")
+        self.assertFalse(self.acsc.check_password("abC4d12!@","aC4d12!@"), "Error! Verificacion no valida!")
         
     #Caso verificacion con un caracter mas
     def testVerifCharMas(self):
-        self.assertEqual("",self.acsc.check_password("fgC4d12!@","afgC4d12!@"), "Error! Verificacion no valida!")
+        self.assertFalse(self.acsc.check_password("fgC4d12!@","afgC4d12!@"), "Error! Verificacion no valida!")
     
     #Caso verificacion con un caracter distinto
     def testVerifCharDist(self):
-        self.assertEqual("",self.acsc.check_password("fv!ueF13di-","fv!ueF13hi-"), "Error! Verificacion no valida!")
-    
+        self.assertFalse(self.acsc.check_password("fv!ueF13di-","fv!ueF13hi-"), "Error! Verificacion no valida!")
+        
     #Caso verificacion valida
     def testVerifValida(self):
-        self.assertEqual("",self.acsc.check_password("eGe123f!!fe","eGe123f!!fe"), "Error! Verificacion valida!")
-    
+        self.assertTrue(self.acsc.check_password("eGe123f!!fe","eGe123f!!fe"), "Error! Verificacion valida!")
     
     """Casos esquina"""
     
@@ -86,19 +85,27 @@ class MdlTest(unittest.TestCase):
     #Caso sin letras y fuera del limite superior
     def testLargoNoChar(self):
         self.assertEqual("", self.acsc.encript("1234@!-836232133!"), "Error! Clave no encriptada!")
-            
+    
+    #Caso dentro del limite superior y sin letras
+    def testCasiLargoNochar(self):
+        self.assertNotEqual("", self.acsc.encript("1234@!-836232133"), "Error! Clave no encriptada!")
+        
     #Verificacion distinta por un caracter de mas y fuera del limite superior
-    def testVerifLargaCharMas(self):
-        self.assertEqual("",self.acsc.check_password("aru!@f3853FI@-9t","aru!@f3853FI@-9ty"), "Error! Verificacion no valida!")
+    def testVerifLargaCharMas(self): 
+        self.assertFalse(self.acsc.check_password("aru!@f3853FI@-9t","aru!@f3853FI@-9ty"), "Error! Verificacion no valida!")
     
     #Verificacion distinta por un caracter de menos y fuera del limite inferior
     def testVerifCortaCharMenos(self):
-        self.assertEqual("",self.acsc.check_password("dER5643@","dER643@"), "Error! Verificacion no valida!")
+        self.assertFalse(self.acsc.check_password("dER5643@","dER643@"), "Error! Verificacion no valida!")
     
+    #Verificacion de dos strings sin caracteres especiales con longitud valida
+    def testEquivNoEsp(self):
+        self.assertFalse(self.acsc.check_password("a6jLy5h4","a6jLy5h4"),"Error! Verificacion no valida")
     
     """Pruebas maliciosa"""
+    
 
-
+    
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
