@@ -17,9 +17,19 @@ class clsAccessControl(object):
         oHash=""
         olength_password=self.length_password(value)
         
+                
+        #Verificar el contenido del password con expresiones regulares
+        hayNumero  = re.match(".*\d.*",value)        
+        hayLetra   = re.match(".*((?![_0-9])\w).*",value) 
+        hayCharEsp = re.match(".*([\ -\/]|[:-?]).*",value)  
         
+        contenidoValido = (
+                           (hayNumero != None) and 
+                           (hayLetra  != None) and 
+                           (hayCharEsp!= None)
+                           )
         
-        if olength_password>=8 and olength_password<=16:
+        if olength_password>=8 and olength_password<=16 and contenidoValido:
             # uuid es usado para generar numeros random
             salt = uuid.uuid4().hex
             # hash
