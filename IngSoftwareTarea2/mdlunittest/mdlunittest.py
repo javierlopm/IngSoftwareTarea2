@@ -85,7 +85,7 @@ class MdlTest(unittest.TestCase):
     
     #Caso sin numeros y dentro del limite inferior
     def testCortoNoNums(self):
-        self.assertEqual("", self.acsc.encript("aib@!-cd"), "Error! Clave no encriptada!")
+        self.assertNotEqual("", self.acsc.encript("aiB@!-cd"), "Error! Clave no encriptda por error!")
         
     #Caso sin letras y fuera del limite superior
     def testLargoNoChar(self):
@@ -93,7 +93,7 @@ class MdlTest(unittest.TestCase):
     
     #Caso dentro del limite superior y sin letras
     def testCasiLargoNochar(self):
-        self.assertNotEqual("", self.acsc.encript("1234@!-836232133"), "Error! Clave no encriptada!")
+        self.assertEqual("", self.acsc.encript("1234@!-836232133"), "Error! Encriptada sin tener letras!")
         
     #Verificacion distinta por un caracter de mas y fuera del limite superior
     def testVerifLargaCharMas(self): 
@@ -108,7 +108,7 @@ class MdlTest(unittest.TestCase):
     #Verificacion de dos strings sin caracteres especiales con longitud valida
     def testEquivNoEsp(self):
         claveCifrada = self.acsc.encript("a6jLy5h4")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"a6jLy5h4"),"Error! Verificacion no valida")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"a6jLy5h4"),"Error! Encriptados indebidamente")
     
     """Pruebas maliciosa"""
     
@@ -120,7 +120,7 @@ class MdlTest(unittest.TestCase):
     
     #String con caracteres de control no presentes en el teclado
     def testCharNoImp(self):
-        string = "\0a\2D\1!Tp43" #String longitud 10
+        string = "\0a\2D\1!Tp_3" #String longitud 10
         self.assertEqual("", self.acsc.encript(string) ,"String con caracteres inesperados encriptado por error")
         
     
