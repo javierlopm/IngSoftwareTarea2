@@ -6,6 +6,7 @@ Created on 24/9/2014
 '''
 import uuid
 import hashlib
+import re
  
 class clsAccessControl(object):
     def __init__(self):
@@ -15,6 +16,9 @@ class clsAccessControl(object):
         # Verificar la longitud del password
         oHash=""
         olength_password=self.length_password(value)
+        
+        
+        
         if olength_password>=8 and olength_password<=16:
             # uuid es usado para generar numeros random
             salt = uuid.uuid4().hex
