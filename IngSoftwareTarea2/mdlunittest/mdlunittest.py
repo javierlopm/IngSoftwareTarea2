@@ -46,107 +46,107 @@ class MdlTest(unittest.TestCase):
     
     #Caso sin numeros
     def testNoNum(self):
-        self.assertEqual("", self.acsc.encript("a@b$C$d$Oe"), "Error$ La clave sin numeros se encripto$")
+        self.assertEqual("", self.acsc.encript("a@b$C$d$Oe"), "Error! La clave sin numeros se encripto$")
     
     #Caso sin letras
     def testNoChars(self):
-        self.assertEqual("", self.acsc.encript("8#3+@#8$6$4"), "Error$ La clave sin letras fue encriptada$")
+        self.assertEqual("", self.acsc.encript("8#3+@#8$6$4"), "Error! La clave sin letras fue encriptada$")
         
     #Caso sin caracteres especiales
     def testNoEspecialChars(self):
-        self.assertEqual("", self.acsc.encript("aBcde12345"), "Error$ La clave sin caracteres especiales fue encriptada$")
+        self.assertEqual("", self.acsc.encript("aBcde12345"), "Error! La clave sin caracteres especiales fue encriptada!")
     
     #Caso sin letas mayusculas
     def testNoMayus(self):
-        self.assertEqual("", self.acsc.encript("acei256#@"), "Error$ la clave sin mayusculas fue encriptada")
+        self.assertEqual("", self.acsc.encript("acei256#@"), "Error! la clave sin mayusculas fue encriptada")
     
     #Caso de string largo fuera del limite superior
     def testLargoNoEncript(self):
-        self.assertEqual("",self.acsc.encript("12c45f78i$k2@4567"),"Error$ se encripto cuando no debia$")
+        self.assertEqual("",self.acsc.encript("12c45f78i$k2@4567"),"Error! se encripto cuando no debia!")
     
     #Caso de string largo en el limite superior
     def testLargoEncript(self):
-        self.assertNotEqual("", self.acsc.encript("12c5F78i$k2@4567"), "Error$ clave no encriptada")
+        self.assertNotEqual("", self.acsc.encript("12c5F78i$k2@4567"), "Error! clave no encriptada")
     
     #Caso de string largo dentro del limite superior
     def testLargoSiEncript(self):
-        self.assertNotEqual("", self.acsc.encript("12c5F78i$k2@456"), "Error$ clave no encriptada")
+        self.assertNotEqual("", self.acsc.encript("12c5F78i$k2@456"), "Error! clave no encriptada")
         
     #Caso de string corto, fuera del limite inferior por un caracter
     def testCortoNoEncript(self):
-        self.assertEqual("",self.acsc.encript("@2c$5f7"),"Error$ se encripto cuando no debia$")
+        self.assertEqual("",self.acsc.encript("@2c$5f7"),"Error! se encripto cuando no debia$")
         
     #Caso de string corto, en el limite inferior
     def testCortoEncript(self):
-        self.assertNotEqual("",self.acsc.encript("@2c*5f7I"),"Error$ clave no encriptada$")
+        self.assertNotEqual("",self.acsc.encript("@2c*5f7I"),"Error! clave no encriptada$")
         
     #Caso de string corto, dentro del limite inferior
     def testCortoSiEncript(self):
-        self.assertNotEqual("",self.acsc.encript("@2c*5f78I"),"Error$ clave no encriptada$")
+        self.assertNotEqual("",self.acsc.encript("@2c*5f78I"),"Error! clave no encriptada$")
         
     #Prueba de codificacion utf-8 clave con caracteres latinos
     def testEnie(self):
-        self.assertNotEqual("",self.acsc.encript("ñ4oáóTí@úT"),"Error$ clave no encriptada$")
+        self.assertNotEqual("",self.acsc.encript("ñ4oáóTí@úT"),"Error! clave no encriptada$")
                      
     #Caso verificacion con un caracter menos
     def testVerifCharMenos(self):
         claveCifrada = self.acsc.encript("abC4d12$@")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"aC4d12$@"), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"aC4d12$@"), "Error! Verificacion no valida!")
         
     #Caso verificacion con un caracter mas
     def testVerifCharMas(self):
         claveCifrada = self.acsc.encript("fgC4d12$@")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"afgC4d12$@"), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"afgC4d12$@"), "Error! Verificacion no valida!")
     
     #Caso verificacion con un caracter distinto
     def testVerifCharDist(self):
         claveCifrada = self.acsc.encript("fv$ueF13di+")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"fv$ueF13hi-"), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"fv$ueF13hi-"), "Error! Verificacion no valida!")
         
     #Caso verificacion valida
     def testVerifValida(self):
         claveCifrada = self.acsc.encript("eGe123f@*fe")
-        self.assertTrue(self.acsc.check_password(claveCifrada,"eGe123f@*fe"), "Error$ Verificacion valida$")
+        self.assertTrue(self.acsc.check_password(claveCifrada,"eGe123f@*fe"), "Error! Verificacion valida!")
     
     """Casos esquina"""
     
     #Caso sin numeros y dentro del limite inferior
     def testCortoNoNums(self):
-        self.assertEqual("", self.acsc.encript("aiB@*$cd"), "Error$ Clave no encriptda por error$")
+        self.assertEqual("", self.acsc.encript("aiB@*$cd"), "Error! Clave no encriptda por error!")
         
     #Caso sin letras y fuera del limite superior
     def testLargoNoChar(self):
-        self.assertEqual("", self.acsc.encript("1234@$+836232133$"), "Error$ Clave no encriptada$")
+        self.assertEqual("", self.acsc.encript("1234@$+836232133$"), "Error! Clave no encriptada!")
     
     #Caso dentro del limite superior y sin letras
     def testCasiLargoNochar(self):
-        self.assertEqual("", self.acsc.encript("1234@$+836232133"), "Error$ Encriptada sin tener letras$")
+        self.assertEqual("", self.acsc.encript("1234@$+836232133"), "Error! Encriptada sin tener letras!")
         
     #Verificacion distinta por un caracter de mas y fuera del limite superior
     def testVerifLargaCharMas(self): 
         claveCifrada = self.acsc.encript("aru$@f3853FI@-9t")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"aru$@f3853FI@-9ty"), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"aru$@f3853FI@-9ty"), "Error! Verificacion no valida$")
     
     #Verificacion distinta por un caracter de menos y fuera del limite inferior
     def testVerifCortaCharMenos(self):
         claveCifrada = self.acsc.encript("dER5643@")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"dER643@"), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"dER643@"), "Error! Verificacion no valida$")
     
     #Verificacion de dos strings sin caracteres especiales con longitud valida
     def testEquivNoEsp(self):
         claveCifrada = self.acsc.encript("a6jLy5h4")
-        self.assertFalse(self.acsc.check_password(claveCifrada,"a6jLy5h4"),"Error$ Encriptados indebidamente")
+        self.assertFalse(self.acsc.check_password(claveCifrada,"a6jLy5h4"),"Error! Encriptados indebidamente")
     
     """Pruebas maliciosas"""
     
     #Caso de string vacio
     def testCadenaNula(self):
-        self.assertEqual("",self.acsc.encript(""), "Error$ se obtuvo una encriptacion")
+        self.assertEqual("",self.acsc.encript(""), "Error! se obtuvo una encriptacion")
         
     #Caso verificacion vacia
     def testVerifVacia(self):
         claveCifrada = self.acsc.encript("abC4d12$@")
-        self.assertFalse(self.acsc.check_password(claveCifrada,""), "Error$ Verificacion no valida$")
+        self.assertFalse(self.acsc.check_password(claveCifrada,""), "Error! Verificacion no valida$")
     
     #Intento de cierre de comilla + extremo de validez, posible entrada para sqlInyections
     def testIntentoVacio(self):
