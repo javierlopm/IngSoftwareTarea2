@@ -137,7 +137,7 @@ class MdlTest(unittest.TestCase):
         claveCifrada = self.acsc.encript("a6jLy5h4")
         self.assertFalse(self.acsc.check_password(claveCifrada,"a6jLy5h4"),"Error$ Encriptados indebidamente")
     
-    """Pruebas maliciosa"""
+    """Pruebas maliciosas"""
     
     #Caso de string vacio
     def testCadenaNula(self):
