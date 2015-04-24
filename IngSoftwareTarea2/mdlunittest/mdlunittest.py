@@ -18,16 +18,31 @@ class MdlTest(unittest.TestCase):
     """Casos Frontera"""
     
     #Verificar tamano cero
-    def testNoNum(self):
+    def testLongCero(self):
         self.assertEqual("", self.acsc.length_password(""), "Error! tamano de la clave invalido")
     
+    #Verificar tamano 7
+    def testlongSiete(self):
+        self.assertEqual("", self.acsc.length_password("@!@!@!@"), "Error! tamano de la clave invalido")
+        
     #Verificar tamano 8
-    def testNoNum(self):
+    def testlongOcho(self):
         self.assertEqual("", self.acsc.length_password("abrrdrhs"), "Error! tamano de la clave invalido")
         
     #Verificar tamano 16
-    def testNoNum(self):
+    def testLongDieciseis(self):
         self.assertEqual("", self.acsc.length_password("1234567891230789"), "Error! tamano de la clave invalido")
+        
+     #Verificar tamano 17
+    def testLongDiecisiete(self):
+        self.assertEqual("", self.acsc.length_password("123456789a1230789"), "Error! tamano de la clave invalido")
+        
+    #Verificar tamano 2^32-1
+    def testLongGrande(self):
+        clave = "a"
+        for i in range(1,2**31-1):
+            clave = clave + "a"
+        self.assertEqual("", self.acsc.length_password(clave), "Error! tamano de la clave invalido")
     
     #Caso sin numeros
     def testNoNum(self):
