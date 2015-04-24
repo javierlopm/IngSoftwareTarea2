@@ -20,15 +20,17 @@ class clsAccessControl(object):
                 
         #Verificar el contenido del password con expresiones regulares
         hayNumero   = re.match(".*\d.*",value)        
-        hayMinuscula    = re.match(".*((?![_0-9A-ZÑÁÉÍÓÚ])\w).*",value)
+        hayMinuscula= re.match(".*((?![_0-9A-ZÑÁÉÍÓÚ])\w).*",value)
         hayMayuscula= re.match(".*[A-ZÑÁÉÍÓÚ].*", value)
-        hayCharEsp  = re.match(".*([\ -\/]|[:-?]).*",value)  
+        hayCharEsp  = re.match(".*[\@\.\#\$\+\*].*",value)  
+        soloValidos = re.match("((?![\_])(\w)|[\@\.\#\$\+\*])*",value)
         
         contenidoValido = (
                            (hayNumero   != None) and 
                            (hayMinuscula!= None) and 
                            (hayCharEsp  != None) and
-                           (hayMayuscula!= None)
+                           (hayMayuscula!= None) and
+                           (soloValidos != None)
                            )
         
         if olength_password>=8 and olength_password<=16 and contenidoValido:
