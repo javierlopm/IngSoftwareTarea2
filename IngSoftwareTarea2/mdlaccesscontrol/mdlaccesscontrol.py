@@ -23,7 +23,7 @@ class clsAccessControl(object):
         hayMinuscula= re.match(".*((?![_0-9A-ZÑÁÉÍÓÚ])\w).*",value)
         hayMayuscula= re.match(".*[A-ZÑÁÉÍÓÚ].*", value)
         hayCharEsp  = re.match(".*[\@\.\#\$\+\*].*",value)  
-        soloValidos = re.match("((?![\_])(\w)|[\@\.\#\$\+\*])*",value)
+        soloValidos = re.match("((?![\_|\x01|\x1A])(\w|[\@\.\#\$\+\*]))+",value) #Escapamos _ y caracteres de control
         
         contenidoValido = (
                            (hayNumero   != None) and 
