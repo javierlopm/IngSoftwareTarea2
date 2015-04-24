@@ -6,6 +6,7 @@ Created on 24/9/2014
 '''
 import uuid
 import hashlib
+import re
  
 class clsAccessControl(object):
     def __init__(self):
@@ -15,7 +16,24 @@ class clsAccessControl(object):
         # Verificar la longitud del password
         oHash=""
         olength_password=self.length_password(value)
-        if olength_password>=8 and olength_password<=16:
+        
+                
+        #Verificar el contenido del password con expresiones regulares
+        hayNumero   = re.match(".*\d.*",value)        
+        hayMinuscula= re.match(".*((?![_0-9A-ZÑÁÉÍÓÚ])\w).*",value)
+        hayMayuscula= re.match(".*[A-ZÑÁÉÍÓÚ].*", value)
+        hayCharEsp  = re.match(".*[\@\.\#\$\+\*].*",value)  
+        soloValidos = re.match("((?![\_|\x01|\x1A])(\w|[\@\.\#\$\+\*]))+",value) #Escapamos _ y caracteres de control
+        
+        contenidoValido = (
+                           (hayNumero   != None) and 
+                           (hayMinuscula!= None) and 
+                           (hayCharEsp  != None) and
+                           (hayMayuscula!= None) and
+                           (soloValidos != None)
+                           )
+        
+        if olength_password>=8 and olength_password<=16 and contenidoValido:
             # uuid es usado para generar numeros random
             salt = uuid.uuid4().hex
             # hash
@@ -27,7 +45,7 @@ class clsAccessControl(object):
     def check_password(self, oPassworkEncript, oCheckPassword):
         # Verificar la longitud del password
         olength_password=self.length_password(oCheckPassword)
-        if olength_password>=8 and olength_password<=16: 
+        if olength_password>=8 and olength_password<=16 and oPassworkEncript!="": 
             # uuid es usado para generar numeros random
             oPassworkEncript, salt = oPassworkEncript.split(':')
             return oPassworkEncript == hashlib.sha256(salt.encode() + oCheckPassword.encode()).hexdigest()
