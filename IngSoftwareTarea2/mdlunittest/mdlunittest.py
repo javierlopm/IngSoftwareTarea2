@@ -23,11 +23,11 @@ class MdlTest(unittest.TestCase):
     
     #Verificar tamano 7
     def testlongSiete(self):
-        self.assertEqual("", self.acsc.length_password("@!@!@!@"), "Error! tamano de la clave invalido")
+        self.assertEqual(7, self.acsc.length_password("@!@!@!@"), "Error! tamano de la clave invalido")
         
     #Verificar tamano 8
     def testlongOcho(self):
-        self.assertEqual("", self.acsc.length_password("abrrdrhs"), "Error! tamano de la clave invalido")
+        self.assertEqual(8, self.acsc.length_password("abrrdrhs"), "Error! tamano de la clave invalido")
         
     #Verificar tamano 16
     def testLongDieciseis(self):
